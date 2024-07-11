@@ -1,2 +1,4 @@
+TERMINAL COMMANDS:
+
 nasm -f bin -I . main_boot_sect.asm -o main_boot_sect.bin
 qemu-system-x86_64 main_boot_sect.bin

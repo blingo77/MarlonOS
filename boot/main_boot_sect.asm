@@ -12,9 +12,15 @@ start:
     mov si, GOODBYE
     call print
 
+    call print_newline
+
+    mov dx, 0x12fe
+    call print_hex
+
     jmp $
     
 %include "./print_boot_sect.asm"    ; includes the file that has print function
+%include "./print_hex_boot.asm"
 
 message: 
     db 'hello World', 0

@@ -1,3 +1,5 @@
+; recieves the data in register 'SI'
+
 print:
     mov bx, 0           ; sets bx to 0 for the page number in browns interupt list
     mov ah, 0eh         ; the function code that tells the computer to display a char on the screen 
