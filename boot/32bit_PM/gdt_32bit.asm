@@ -23,8 +23,8 @@ start_gdt:
 end_gdt:
 
 gdt_descriptor:
-    dw gdt_end - start_gdt - 1
-    dd get_start
+    dw end_gdt - start_gdt - 1
+    dd start_gdt
 
 CODE_SEGMENT equ code_descriptor - start_gdt
 DATA_SEGMENT equ data_descriptor - start_gdt
