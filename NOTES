@@ -1,7 +1,9 @@
 TERMINAL COMMANDS:
 
-nasm -f bin -I . main_boot_sect.asm -o main_boot_sect.bin
-qemu-system-x86_64 main_boot_sect.bin
+    nasm -f bin -I . main_boot_sect.asm -o main_boot_sect.bin
+    qemu-system-x86_64 main_boot_sect.bin
 
-nasm -f bin -I . main_32bit.asm -o main_32bit.bin
+    nasm -f bin -I . main_32bit.asm -o main_32bit.bin
 
+COMPILE SYSTEM INDEPENDENT CODE:
+    i386-elf-gcc -ffreestanding -c <filename.c> -o <filename.o>
