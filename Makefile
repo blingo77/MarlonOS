@@ -30,10 +30,6 @@ kernel.o: kernel/kernel.c
 kernel_entry.o : kernel/kernel_entry/kernel_entry.asm 
 	nasm $< -f elf -o $@
 
-# bootersector.asm into binary file
-bootsector.bin: boot/main/bootsector.asm
-	nasm -f bin $< -o $@
-
 #disassembles kernel
 kernel.dis: kernel.bin
 	ndisasm -b 32 $< > $@
