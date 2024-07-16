@@ -1,5 +1,6 @@
 
 load_disk:
+    pusha
 
     push dx             ; push dx into stack, dh contains the amt of sectors to read, dl has the drive number
 
@@ -17,7 +18,7 @@ load_disk:
     pop dx                 ; restore the DX register when we pushed it, giving us back dh = 2, which is the amt of sectors we want read
     cmp al, dh             ; the 0x13 BIOS interrupt will auto store the amt of sectors read into AL register
     jne sector_error       ; if both AL and DH arent ==, then jump to sector error
-
+    popa
     ret
 
 disk_error:

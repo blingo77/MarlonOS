@@ -1,3 +1,5 @@
+;THIS IS A DEMO OF THE MAIN SECTION OF THE BOOTLOADER
+
 [org 0x7c00]                        ; set origin 0x7c00
 BITS 16                             ;instructions will be generated in 16-bit instructions
 
