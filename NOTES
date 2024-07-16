@@ -7,3 +7,8 @@ TERMINAL COMMANDS:
 
 COMPILE SYSTEM INDEPENDENT CODE:
     i386-elf-gcc -ffreestanding -c <filename.c> -o <filename.o>
+
+PATH:
+    export PREFIX="/usr/local/i386elfgcc"
+    export TARGET=i386-elf
+    export PATH="$PREFIX/bin:$PATH"
