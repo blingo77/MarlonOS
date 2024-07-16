@@ -1,4 +1,4 @@
-
+// forces to create entry function instead of having the kernel.c be at 0x00
 void dummy_test_entrypoint()
 {
 

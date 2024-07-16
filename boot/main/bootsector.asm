@@ -2,7 +2,8 @@
 
 KERNEL_OFFSET equ 0x1000        ;Kernel is placed at memory 0x1000
 
-    mov [BOOT_DRIVE], dl            ; Store dl into BOOT_DRIVE
+    mov [BOOT_DRIVE], dl            ; Store dl into BOOT_DRIVE, DL holds the code that represents the Boot drive
+                                    ; the BIOS will look into DL for that code. 
     mov bp, 0x9000                  ;base pointer is now 0x9000
     mov sp, bp                      ; stack pointer is now 0x9000 which is where the stack will start
 
@@ -46,5 +47,6 @@ REAL_MODE_MSG db "Starting 16-bit real mode", 0
 PROT_MODE_MSG db "Landing in 32bit protected mode", 0
 LOAD_KERNEL_MSG db "Loading kernel into memory...", 0
 
+; fill 510 bytes with 0, last two will be 0x55AA (0xAA55 reversed)
 times 510 - ($-$$) db 0
 dw 0xaa55
