@@ -25,7 +25,9 @@ void main()
                                     // occupies 2 bytes of memory
 
     char *vga = 0xb8000;    // VGA text mode memory address
-    vga[offset_from_vga] = 'X';
-    vga[offset_from_vga + 1] = 0x0f;
+
+    vga[offset_from_vga] = 'E';
+    vga[offset_from_vga + 1] = 0xCA; //the byte is split into two, the C is the background color, A is the font color
+
 
 }
