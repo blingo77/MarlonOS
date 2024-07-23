@@ -9,10 +9,54 @@ void set_cursor_offset(int offset);
 int get_cursor_offset();
 int print_char(char c, int col, int row, char attribute);
 
+/* PUBLIC KERNEL FUNCTIONS */
+
+void kernel_print_at(char *message, int col, int row)
+{
+    int offset;
+    if (col >= 0 && row >= 0)
+    {
+        offset = get_offset(col, row);  // if valid, it gets the current offset
+    }
+    else
+    {
+        // keeps printing at current cursor
+        offset = get_cursor_offset();   // sets offset to the current offset
+        row = get_offset_row(offset);   // gets row of current cursor
+        col = get_offset_col(offset);   // gets col of current cursor
+    }
+
+    int i = 0;
+    while (message[i] != 0)     // if message reaches null terminator '\0' loop breaks
+    {
+        offset = print_char(message[i], col, row, WHITE_ON_BLACK);      // prints character at 'row' and 'col', updates the offset since 'print_char' returns next charater offset
+        i++;                                                            // increments the message to move onto the next character
+        row = get_offset_row(offset);                                   // updates the row based on new cursor position
+        col = get_offset_col(offset);                                   // updates the column based on new cursor position
+    }
+}
+
+void kernel_print(char *message)
+{
+    kernel_print_at(message, -1, -1);   // prints at current cursor positon since 'row' and 'col' are negative
+                                        // kernel_print_at handles negative 'row' and 'col'
+}
+
+/* PRIVATE FUNCTIONS*/
+
+/*
+How print_char works:
+
+    1. If 'col' and 'row' are negative, print at cursor position.
+    2. If 'attribute' is 0 then default to 'WHITE_ON_BLACK'.
+    3. Sets the text cursor to the returned offset.
+    4. Returns the offset of next character spot.
+*/
+
 int print_char(char c, int col, int row, char attribute)
 {
     unsigned char *video_mem = (unsigned char*) VID_MEM_ADDRESS;
-    if(!attribute) attribute = WHITE_ON_BLACK;
+    if(!attribute) { attribute = WHITE_ON_BLACK; }
 
     // FOR ERROR CHECKING
     if (col >= MAX_COLS || row >= MAX_ROWS)
