@@ -29,7 +29,7 @@ load_kernel:
     call print_newline
 
     mov bx, KERNEL_OFFSET
-    mov dh, 2               ; Amount of sectors we want read, and how many that will be passed into load_disk
+    mov dh, 16               ; Amount of sectors we want read, and how many that will be passed into load_disk
     mov dl, [BOOT_DRIVE]    ; move dl which got stored in BOOT_DRIVE back into dl
     call load_disk
     ret

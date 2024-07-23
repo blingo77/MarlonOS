@@ -16,7 +16,7 @@ os-image.bin: bootsector.bin kernel.bin
 	cat $^ > $@
 
 qemu-run: os-image.bin
-	sudo qemu-system-i386 -drive format=raw,file=os-image.bin
+	qemu-system-i386 -fda $<
 
 # links together kernel.c and kernel_entry.asm Object files
 kernel.bin: kernel_entry.o ${OBJ}
