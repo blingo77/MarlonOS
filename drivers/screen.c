@@ -1,5 +1,6 @@
 #include "port.h"
 #include "screen.h"
+#include "../kernel/util.h"
 
 /* Function Declarations */
 int get_offset(int col, int row);
@@ -82,6 +83,28 @@ int print_char(char c, int col, int row, char attribute)
         video_mem[offset] = c;              // Sets the character byte to the character
         video_mem[offset + 1] = attribute;  // Sets the attribute byte to the attribute declared ealier
         offset += 2;                        // adds two, to move to next character cell position
+    }
+
+    /* CHECK IF WE NEED TO SCROLL*/
+    if(offset >= MAX_ROWS * MAX_COLS * 2)
+    {
+        for(int i = 1; i < MAX_ROWS; i++)   // Start at 1 because we cant move row 0 up
+        {                                   // We need to move everything up one line, which is why i < MAX_ROWS
+
+            // Add video_mem to offset so we can find the real position of the character and attribute bytes
+            mem_copy(get_offset(0, i) + VID_MEM_ADDRESS,    //sets the source to be the current row
+                     get_offset(0, i-1) + VID_MEM_ADDRESS,  // sets the source to copy to the row behind the current row
+                     MAX_COLS * 2);                         // We need to copy every thing on the row moving across the X-axis (cols)
+        }                                                   // We multiply MAX_COLS * 2 to make sure character and attribute bytes are copied
+
+        // clears the last line
+        char *last_line = get_offset(0, MAX_ROWS-1) + VID_MEM_ADDRESS;  //MAX_ROWS - 1 grabs the last line maybe
+        for(int i = 0; i < MAX_COLS * 2; i++)
+        {
+            last_line[i] = 0;   // set every byte in the row to 0, making it empty
+        }
+
+        offset -=2 * MAX_COLS;  // moves the offset back to the beginning of the last line
     }
 
     set_cursor_offset(offset);              // updates the cursor position after a character is printed
