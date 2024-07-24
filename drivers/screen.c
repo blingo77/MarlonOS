@@ -77,7 +77,7 @@ int print_char(char c, int col, int row, char attribute)
         row = get_offset_row(offset);       // gets the row currently at
         offset = get_offset(0, row + 1);    // adds 1 to go the next row and goes to column 0, setting offset to the new
     }
-    else
+    else                                    // prints the character
     {
         video_mem[offset] = c;              // Sets the character byte to the character
         video_mem[offset + 1] = attribute;  // Sets the attribute byte to the attribute declared ealier
