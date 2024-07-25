@@ -1,10 +1,12 @@
 start_gdt:
 
+    ; 0x00 -> 0
     null_descriptor:
         ; the GDT starts will a null 8 bytes
         dd 0x0
         dd 0x0
     
+    ; 0x08  -> 8
     code_descriptor:
         dw 0xffff    ; segment length, bits 0-15
         dw 0x0       ; segment base, bits 0-15
@@ -13,6 +15,7 @@ start_gdt:
         db 11001111b ; flags (4 bits) + segment length, bits 16-19
         db 0x0       ; segment base, bits 24-31
     
+    ; 0x10  -> 16
     data_descriptor:
         dw 0xffff
         dw 0x0
