@@ -13,7 +13,7 @@ void set_idt_gate(int n, u32 handler)
 void set_idt()
 {
     idt_register.base = (u32) &idt;     // sets the base to the memory address of the idt array
-    idt_register.limit = IDT_ENTRIES * sizeof(idt_gate_t) - 1;
+    idt_register.limit = IDT_ENTRIES * sizeof(idt_gate_t) - 1;  // sets the limit of the IDT
 
     __asm__ __volatile__("lidtl (%0)" : : "r" (&idt_register)); 
 

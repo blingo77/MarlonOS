@@ -24,7 +24,7 @@ mv util.o ./kernel/
 #kernel_entry.o
 nasm kernel/kernel_entry/kernel_entry.asm -f elf -o kernel_entry.o
 
-#link kernel.o and kernel_entry.o into kernel.bin
+#link kernel.o, kernel_entry.o and other object files into kernel.bin
 i386-elf-ld -o kernel.bin -Ttext 0x1000 kernel_entry.o kernel/kernel.o drivers/port.o drivers/screen.o kernel/util.o --oformat binary
 
 #catnate kernel.bin and bootsector.bin

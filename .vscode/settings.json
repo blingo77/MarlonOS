@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "port.h": "c",
-        "util.h": "c"
+        "util.h": "c",
+        "isr.h": "c"
     }
 }

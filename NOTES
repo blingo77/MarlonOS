@@ -5,6 +5,9 @@ TERMINAL COMMANDS:
 
     nasm -f bin -I . main_32bit.asm -o main_32bit.bin
 
+    qemu-system-x86_64 -fda os-image.bin
+
+
 COMPILE SYSTEM INDEPENDENT CODE:
     i386-elf-gcc -ffreestanding -c <filename.c> -o <filename.o>
 

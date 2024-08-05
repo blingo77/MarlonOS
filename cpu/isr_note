@@ -1,0 +1,15 @@
+1.Interrupt Occurs: A hardware device or software event triggers an interrupt signal.
+
+2.Interrupt Acknowledgment: The CPU acknowledges the interrupt, pausing the current execution.
+
+3.Save Context: The CPU saves its current state to the stack.
+
+4.Identify ISR: The CPU consults the Interrupt Descriptor Table (IDT) to locate the address of the appropriate ISR based on the interrupt vector number.
+
+5.Execute ISR: The CPU jumps to the ISR and executes it.
+
+6.Handle the Interrupt: The ISR performs the necessary actions to respond to the interrupt.
+
+7.Restore Context: The ISR completes, and the CPU restores its previously saved state.
+
+8.Resume Execution: The CPU continues executing the interrupted task.
