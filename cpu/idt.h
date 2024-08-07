@@ -6,7 +6,7 @@
 #define KERNEL_CODE_SEGEMNT 0x08    // 0x08 is where the code segement of kernel is ran in the GDT
 
 // How every interrupt gate table is defined
-typedef struct 
+typedef struct  
 {
     // The interrupt gate should be exactly 8 bytes
 
@@ -29,19 +29,19 @@ typedef struct
 
    u16 high_offset; // the high bits of tje handler function address
 
-} __attribute__((packed)) idt_gate_t;  // needs to be exactly 8 bytes so we pack it, so theres no padding
+}__attribute__((packed)) idt_gate_t;  // needs to be exactly 8 bytes so we pack it, so theres no padding
 
 // A pointer to the array of interrupt handlers
 // ASM instruction 'lidt will read it
-typedef struct
+typedef struct idt_register_t
 {
     u16 limit;      //represents the size of the IDT in bytes
     u32 base;       // represents the starting memory address of the IDT
-} __attribute__((packed)) idt_register_t;
+}__attribute__((packed)) idt_register_t ;
 
 #define IDT_ENTRIES 256         // max number of entries that the IDT can hold
 idt_gate_t idt[IDT_ENTRIES];    // an array of idt_date_t, which holds 256 gate structures
-idt_register_t idt_register;    // stores base address and limit of he idt, which will be loaded into the processors idtr register
+idt_register_t idt_reg;    // stores base address and limit of he idt, which will be loaded into the processors idtr register
 
 void set_idt_gate(int n, u32 handler);
 void set_idt();

@@ -3,7 +3,7 @@
 # $^ -> all dependenceis
 C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
-OBJ = ${C_SOURCES:.c=.o}
+OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 CFLAGS = -g
 
@@ -20,7 +20,7 @@ qemu-run: os-image.bin
 
 # links together kernel.c and kernel_entry.asm Object files
 kernel.bin: kernel_entry.o ${OBJ}
-	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
+	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary --allow-multiple-definition
 
 # creates kernel object file
 kernel.o: kernel/kernel.c

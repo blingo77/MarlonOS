@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "../drivers/screen.h"
 #include "../kernel/util.h"
+#include "types.h"
 
 void install_isr()
 {
@@ -84,13 +85,13 @@ char *exception_messages[] = {
     "Reserved"
 };
 
-void isr_handler(registers_t r)
+void isr_handler(regs_t r)
 {
     kernel_print("received int: ");
     char s[3];
-    int_to_ascii(r.int_num, s);
+    int_to_ascii(r.int_no, s);
     kernel_print(s);
     kernel_print("\n");
-    kernel_print(exception_messages[r.int_num]);
+    kernel_print(exception_messages[r.int_no]);
     kernel_print("\n");
 }

@@ -2,6 +2,7 @@
     "files.associations": {
         "port.h": "c",
         "util.h": "c",
-        "isr.h": "c"
+        "isr.h": "c",
+        "idt.h": "c"
     }
 }

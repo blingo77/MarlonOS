@@ -46,12 +46,12 @@ extern void isr31();
 typedef struct 
 {
     u32 ds;                                 // data segment selector
-    u32 edi, esi, ebp, esp, ebx, ecx, eax;  // All gets pushed by pusha in ASM
-    u32 int_num, error_code;                //Interrupt number and error code
+    u32 edi, esi, ebp, esp, edx, ebx, ecx, eax;  // All gets pushed by pusha in ASM
+    u32 int_no, err_code;                //Interrupt number and error code
     u32 eip, cs, eflags, useresp, ss;       // pushed by the processor automatically
-}registers_t;
+}regs_t;
 
 void install_isr();
-void isr_handler(registers_t r);
+void isr_handler(regs_t r);
 
 #endif

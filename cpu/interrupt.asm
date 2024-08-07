@@ -1,31 +1,40 @@
+; Defined in isr.c
 [extern isr_handler]
 
+; Common ISR code
 isr_common_stub:
-    ; We need to save the current state of the CPU, so that it continute what it was
-    ; doing after the interrupt
-    pusha           ; Pushes general purpose registers edi, esi, ebp, esp, ebx, edx, ecx, eax
-    mov ax, ds      ; put the 16 bit version of eax into data segment
-    push eax        ; save the data segment descriptor
-    mov ax, 0x10    ; 0x10 is the kernel data segemnt descriptor
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
+    ; 1. Save CPU state
+	pusha ; Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
+	mov ax, ds ; Lower 16-bits of eax = ds.
+	push eax ; save the data segment descriptor
+	mov ax, 0x10  ; kernel data segment descriptor
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	
+    ; 2. Call C handler
+	call isr_handler
+	
+    ; 3. Restore state
+	pop eax 
+	mov ds, ax
+	mov es, ax
+	mov fs, ax
+	mov gs, ax
+	popa
+	add esp, 8 ; Cleans up the pushed error code and pushed ISR number
+	sti
+	iret ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP
+	
+; We don't get information about which interrupt was caller
+; when the handler is run, so we will need to have a different handler
+; for every interrupt.
+; Furthermore, some interrupts push an error code onto the stack but others
+; don't, so we will push a dummy error code for those which don't, so that
+; we have a consistent stack for all of them.
 
-    ; Call the handler thats in C
-    call isr_handler
-    
-    ; Restore the state of the CPI
-    pop eax
-    mov ds, ax
-    mov es, ax
-    mov fs, ax
-    mov gs, ax
-    popa            ; Pops all the general purpose registers
-    add esp, 8      ; Cleans the pushed error code and pushed ISR numver
-    sti             ; renables interrupts
-    iret            ; (interrupt return) pops all these at once: CS, EIP, EFLAGS, SS, and ESP
-
+; First make the ISRs global
 global isr0
 global isr1
 global isr2
@@ -58,10 +67,6 @@ global isr28
 global isr29
 global isr30
 global isr31
-
-; Some interrupts push a error code onto the stack but some dont,
-; so for those that dont we will push a dummy error code so that we have
-; a consistent stack all the time
 
 ; 0: Divide By Zero Exception
 isr0:
