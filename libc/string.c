@@ -13,6 +13,17 @@ void int_to_ascii(int n, char str[]) {
     reverse(str);
 }
 
+
+int strLen(char s[])
+{
+    int i = 0;
+    while(s[i] != '\0')
+    {
+        i++;
+    }
+    return i;
+}
+
 void reverse(char s[])
 {
     int c, j;
@@ -26,15 +37,6 @@ void reverse(char s[])
     }
 }
 
-int strLen(char s[])
-{
-    int i = 0;
-    while(s[i] != '\0')
-    {
-        i++;
-    }
-    return i;
-}
 
 void backspace(char s[])
 {

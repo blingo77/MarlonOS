@@ -43,6 +43,13 @@ void kernel_print(char *message)
                                         // kernel_print_at handles negative 'row' and 'col'
 }
 
+void kernelPrint_backspace()
+{
+    int offset = get_cursor_offset() - 2;
+    int row = get_offset_row(offset);
+    int col = get_offset_col(offset);
+    print_char(0x08, col, row, WHITE_ON_BLACK);
+}
 /* PRIVATE FUNCTIONS*/
 
 /*
@@ -77,6 +84,11 @@ int print_char(char c, int col, int row, char attribute)
     {
         row = get_offset_row(offset);       // gets the row currently at
         offset = get_offset(0, row + 1);    // adds 1 to go the next row and goes to column 0, setting offset to the new
+    }
+    else if(c == 0x08)  //backspace
+    {
+        video_mem[offset] = ' ';
+        video_mem[offset + 1] = WHITE_ON_BLACK;
     }
     else                                    // prints the character
     {

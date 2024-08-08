@@ -12,3 +12,4 @@
 void clear_screen();
 void kernel_print_at(char *message, int col, int row );
 void kernel_print(char *message);
+void kernelPrint_backspace();
