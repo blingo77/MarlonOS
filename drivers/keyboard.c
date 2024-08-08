@@ -2,7 +2,8 @@
 #include "port.h"
 #include "screen.h"
 #include "../cpu/isr.h"
-#include "../kernel/util.h"
+#include "../libc/mem.h"
+#include "../libc/string.h"
 
 static void keyboard_callback(regs_t regs)
 {

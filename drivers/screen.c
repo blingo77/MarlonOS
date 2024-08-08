@@ -1,6 +1,6 @@
 #include "port.h"
 #include "screen.h"
-#include "../kernel/util.h"
+#include "../libc/mem.h"
 
 /* Function Declarations */
 int get_offset(int col, int row);

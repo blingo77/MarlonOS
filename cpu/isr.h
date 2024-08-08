@@ -93,6 +93,7 @@ typedef struct
 
 void install_isr();
 void isr_handler(regs_t r);
+void install_irq();
 
 typedef void (*isr_t)(regs_t);
 void register_int_handler(u8 n, isr_t handler);

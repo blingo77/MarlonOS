@@ -1,5 +1,6 @@
 #include "../drivers/screen.h"
-#include "util.h"
+#include "../libc/mem.h"
+#include "../libc/string.h"
 #include "../cpu/idt.h"
 #include "../cpu/isr.h"
 #include "../cpu/timer.h"
