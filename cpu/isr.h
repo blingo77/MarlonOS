@@ -95,6 +95,6 @@ void install_isr();
 void isr_handler(regs_t r);
 
 typedef void (*isr_t)(regs_t);
-void register_interrupt_handler(u8 n, isr_t handler);
+void register_int_handler(u8 n, isr_t handler);
 
 #endif
